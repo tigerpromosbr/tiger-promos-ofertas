@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tiger Promos – Todas as ofertas</title>
+<meta name="description" content="Todas as ofertas que o Tiger Promos já postou, em um só lugar.">
+<meta name="theme-color" content="#120d08">
+<link rel="icon" href="logo.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap">
+<style>
+:root{--bg:#120d08;--panel:#1d150d;--orange:#ff8a00;--ink:#fff4e6;--muted:#c2b4a3;--line:#3a2a18;
+ --display:'Anton',Impact,'Arial Narrow',sans-serif;--body:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+ color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--body)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 18px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(18,13,8,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:12px;padding-top:10px;padding-bottom:10px}
+.logo{width:44px;height:44px;border-radius:50%;border:3px solid var(--orange)}
+.name{font:400 22px/1 var(--display);letter-spacing:.5px;flex:1}
+.cta{background:var(--orange);color:#1a1108;text-decoration:none;font:400 17px/1 var(--display);padding:12px 18px 12px 26px;
+ clip-path:polygon(12% 0,100% 0,100% 100%,12% 100%,0 50%);white-space:nowrap}
+.cta:hover,.cta:focus-visible{background:#fff;outline:none}
+h1{font:400 clamp(30px,6vw,50px)/1.05 var(--display);margin:30px 0 6px;letter-spacing:.5px}
+.sub{color:var(--muted);margin:0 0 20px}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+input[type=search]{flex:1 1 240px;min-width:0;background:var(--panel);border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:13px 15px;font:inherit}
+input[type=search]:focus-visible,.seg button:focus-visible,.more:focus-visible,.card:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.seg{display:flex;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.seg button{background:var(--panel);color:var(--muted);border:0;padding:0 16px;font:inherit;cursor:pointer;min-height:46px}
+.seg button[aria-pressed=true]{background:var(--orange);color:#1a1108;font-weight:700}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.card{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;color:inherit;text-decoration:none}
+.card:hover{border-color:var(--orange)}
+.ph{position:relative;background:#fff;aspect-ratio:1;display:grid;place-items:center;padding:10px}
+.ph img{max-width:100%;max-height:100%;object-fit:contain}
+.ph img.fb{width:44%;opacity:.45;border-radius:50%}
+.off{position:absolute;top:8px;left:8px;background:var(--orange);color:#1a1108;font:400 18px/1 var(--display);padding:7px 9px;border-radius:8px}
+.bd{display:flex;flex-direction:column;gap:3px;padding:12px 14px 14px;flex:1}
+h3{font:600 15px/1.3 var(--body);margin:0 0 4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.6em}
+.old{color:var(--muted);text-decoration:line-through;font-size:14px;min-height:1.3em}
+.pr{font:400 28px/1.1 var(--display);color:var(--orange)}
+.when{color:var(--muted);font-size:13px;margin-bottom:8px}
+.btn{margin-top:auto;text-align:center;background:var(--orange);color:#1a1108;font-weight:700;border-radius:10px;padding:11px}
+.empty{color:var(--muted);text-align:center;padding:60px 0}
+.more{display:block;margin:26px auto 0;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:13px 26px;font:inherit;cursor:pointer}
+footer{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 40px;color:var(--muted);font-size:13px;text-align:center}
+footer p{margin:0 auto 8px;max-width:64ch}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <img class="logo" src="logo.png" alt="Tiger Promos" width="44" height="44">
+  <span class="name" id="nome">Tiger Promos</span>
+  <a class="cta" id="grupo" href="#" rel="noopener">Entrar no grupo</a>
+</div></header>
+<main class="wrap">
+  <h1>Todas as ofertas do Tiger</h1>
+  <p class="sub" id="sub"></p>
+  <div class="tools">
+    <input type="search" id="q" placeholder="Buscar produto" aria-label="Buscar produto">
+    <div class="seg" role="group" aria-label="Ordenar">
+      <button type="button" data-s="new" aria-pressed="true">Mais recentes</button>
+      <button type="button" data-s="off" aria-pressed="false">Maior desconto</button>
+    </div>
+  </div>
+  <div class="grid" id="grid"></div>
+  <p class="empty" id="vazio" hidden>Nenhuma oferta encontrada.</p>
+  <button type="button" class="more" id="mais" hidden>Mostrar mais ofertas</button>
+</main>
+<footer><div class="wrap">
+  <p>Os links são de afiliado: o Tiger Promos pode receber uma comissão pelas compras feitas por eles, sem custo extra para você.</p>
+  <p>Ofertas podem ter acabado ou mudado de preço. Confira sempre no site da loja.</p>
+</div></footer>
+<script src="ofertas.js"></script>
+<script>
+(function(){
+  var D = window.TIGER || {items:[]}, items = D.items || [], sort = 'new', shown = 24, term = '';
+  var $ = function(i){return document.getElementById(i)};
+  var brl = function(v){return Number(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})};
+  function ago(t){var m=Math.round((Date.now()-t)/60000);if(m<2)return 'agora há pouco';if(m<60)return 'há '+m+' min';
+    var h=Math.round(m/60);if(h<24)return 'há '+h+(h===1?' hora':' horas');var d=Math.round(h/24);return 'há '+d+(d===1?' dia':' dias')}
+  if (D.name) { $('nome').textContent = D.name; document.title = D.name + ' – Todas as ofertas'; }
+  if (D.group) $('grupo').href = D.group; else $('grupo').hidden = true;
+  $('sub').textContent = items.length ? items.length + ' ofertas • atualizado ' + ago(D.updatedAt || Date.now()) : 'Ainda não há ofertas por aqui.';
+  function el(tag, cls, text){var e=document.createElement(tag); if(cls)e.className=cls; if(text!=null)e.textContent=text; return e}
+  function card(o){
+    var a = el('a','card'); a.href = o.link; a.target = '_blank'; a.rel = 'noopener sponsored';
+    var ph = el('div','ph'), img = el('img'); img.src = o.image || 'logo.png'; if (!o.image) img.className = 'fb'; img.alt = ''; img.loading = 'lazy'; img.referrerPolicy = 'no-referrer';
+    ph.appendChild(img); if (o.discount) ph.appendChild(el('span','off','-' + o.discount + '%')); a.appendChild(ph);
+    var bd = el('div','bd'); bd.appendChild(el('h3',null,o.title));
+    bd.appendChild(el('div','old', o.oldPrice && o.oldPrice > o.price ? 'De ' + brl(o.oldPrice) : ''));
+    bd.appendChild(el('div','pr',brl(o.price))); bd.appendChild(el('div','when','Postado ' + ago(o.at)));
+    bd.appendChild(el('span','btn','Ver oferta')); a.appendChild(bd); return a;
+  }
+  function render(){
+    var list = items.filter(function(o){return !term || o.title.toLowerCase().indexOf(term) > -1});
+    list.sort(function(a,b){return sort==='off' ? (b.discount-a.discount)||(b.at-a.at) : b.at-a.at});
+    var g = $('grid'); g.textContent = '';
+    list.slice(0, shown).forEach(function(o){g.appendChild(card(o))});
+    $('vazio').hidden = list.length > 0; $('mais').hidden = list.length <= shown;
+  }
+  $('q').addEventListener('input', function(e){term = e.target.value.trim().toLowerCase(); shown = 24; render()});
+  $('mais').addEventListener('click', function(){shown += 24; render()});
+  document.querySelectorAll('.seg button').forEach(function(b){b.addEventListener('click', function(){
+    sort = b.dataset.s; shown = 24;
+    document.querySelectorAll('.seg button').forEach(function(x){x.setAttribute('aria-pressed', x === b ? 'true' : 'false')}); render();
+  })});
+  render();
+})();
+</script>
+</body>
+</html>
