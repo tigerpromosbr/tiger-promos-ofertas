@@ -80,6 +80,7 @@ footer p{margin:0 auto 8px;max-width:64ch}
   var D = window.TIGER || {items:[]}, items = D.items || [], sort = 'new', shown = 24, term = '';
   var $ = function(i){return document.getElementById(i)};
   var brl = function(v){return Number(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})};
+  var norm = function(t){return String(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()};
   function ago(t){var m=Math.round((Date.now()-t)/60000);if(m<2)return 'agora há pouco';if(m<60)return 'há '+m+' min';
     var h=Math.round(m/60);if(h<24)return 'há '+h+(h===1?' hora':' horas');var d=Math.round(h/24);return 'há '+d+(d===1?' dia':' dias')}
   if (D.name) { $('nome').textContent = D.name; document.title = D.name + ' – Todas as ofertas'; }
@@ -96,13 +97,13 @@ footer p{margin:0 auto 8px;max-width:64ch}
     bd.appendChild(el('span','btn','Ver oferta')); a.appendChild(bd); return a;
   }
   function render(){
-    var list = items.filter(function(o){return !term || o.title.toLowerCase().indexOf(term) > -1});
+    var list = items.filter(function(o){return !term || norm(o.title).indexOf(term) > -1});
     list.sort(function(a,b){return sort==='off' ? (b.discount-a.discount)||(b.at-a.at) : b.at-a.at});
     var g = $('grid'); g.textContent = '';
     list.slice(0, shown).forEach(function(o){g.appendChild(card(o))});
     $('vazio').hidden = list.length > 0; $('mais').hidden = list.length <= shown;
   }
-  $('q').addEventListener('input', function(e){term = e.target.value.trim().toLowerCase(); shown = 24; render()});
+  $('q').addEventListener('input', function(e){term = norm(e.target.value.trim()); shown = 24; render()});
   $('mais').addEventListener('click', function(){shown += 24; render()});
   document.querySelectorAll('.seg button').forEach(function(b){b.addEventListener('click', function(){
     sort = b.dataset.s; shown = 24;
